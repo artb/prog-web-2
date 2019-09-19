@@ -1,0 +1,20 @@
+{
+  "name": "express_tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.1",
+    "bootstrap": "^4.3.1",
+    "express-handlebars": "^3.1.0",
+    "jquery": "^3.4.1",
+    "morgan": "^1.9.1",
+    "node-sass-middleware": "^0.11.0",
+    "popper.js": "^1.15.0"
+  }
+}
