@@ -20,6 +20,10 @@ app.use('/js', [
 	express.static(__dirname + '/node_modules/bootstrap/dist/js/'),
 	express.static(__dirname + '/public/js')
 ]);
+// css import
+app.use('/css', [
+	express.static(__dirname + '/public/css')
+])
 
 app.engine('handlebars', handlebars({
 	layoutsDir: __dirname + '/app/views/layouts',
