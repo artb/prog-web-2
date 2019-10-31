@@ -1,3 +1,14 @@
 {
-    "editor.autoClosingQuotes": "always"
+    "editor.autoClosingQuotes": "always",
+    "sqltools.connections": [
+        {
+            "database": "myapp",
+            "dialect": "MySQL",
+            "name": "docker-chess-app",
+            "password": "senha",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
 }
