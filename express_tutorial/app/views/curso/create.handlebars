@@ -1,0 +1,10 @@
+<div class="form-group">
+<label for="nome">Nome</label>
+<input type="text" name="nome" value="{{curso.nome}}">
+<form action="/curso/create" method="post">
+    <input type="text" name="sigla">
+    <input type="text" name="nome">
+    <input type="submit" value="Enviar">
+</form>
+<div class="invalid-feedback">{{showError errors 'nome'}}</div>
+</div>

@@ -33,6 +33,7 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/app/views')
 
 app.use(logger("common"));
+app.use(express.urlencoded({extended: false}));
 app.use(router);
 
 app.use('/assets',[
