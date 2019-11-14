@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "/Users/arthurbinda/Desktop/UFAM/pw2/express_tutorial"
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"database": "myapp",
+				"dialect": "MySQL",
+				"name": "docker-chess-app",
+				"password": "senha",
+				"port": 3306,
+				"server": "localhost",
+				"username": "root"
+			}
+		]
+	}
+}
