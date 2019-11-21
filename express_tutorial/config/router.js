@@ -9,7 +9,7 @@ router.get('/', mainController.index);
 router.get('/sobre', mainController.sobre);
 
 // AreaController
-router.get('/area', areaController.index)
+router.get('/area', areaController.index);
 
 // CursoController
 router.get('/curso', cursoController.index);

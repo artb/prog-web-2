@@ -3,6 +3,8 @@ const logger = require('morgan');
 const app = express();
 const router = require('./config/router');
 const handlebars = require('express-handlebars');
+const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
 
 // SCSS import
 const sass = require('node-sass-middleware');
@@ -23,7 +25,10 @@ app.use('/js', [
 // css import
 app.use('/css', [
 	express.static(__dirname + '/public/css')
-])
+]);
+
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
 
 app.engine('handlebars', handlebars({
 	layoutsDir: __dirname + '/app/views/layouts',

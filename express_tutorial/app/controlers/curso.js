@@ -5,15 +5,19 @@ const update = (req, res) => { };
 const remove = (req, res) => { };
 
 const index = async (req, res) => {
-    const cursos = await Curso.findAll();
-    res.render('curso/index', {
-        cursos: cursos,
-    });
+    try {
+        cursos = await Curso.findAll();
+        res.render('curso/index', {
+            cursos: cursos,
+        });
+    } catch(error) {}
 };
 
 const create = async (req, res) => {
     if (req.route.methods.get) {
-        res.render('curso/create');
+        res.render('curso/create',{
+            csrf: req.csrfToken()
+        });
     } else {
         curso = await Curso.create({
             sigla: req.body.sigla,
@@ -25,4 +29,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = { index, read, create, update, remove}
+module.exports = { index, read, create, update, remove }

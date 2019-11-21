@@ -2,14 +2,16 @@
     <form action="/curso/create" method="post">
         <label for="sigla">Sigla</label>
         <input type="text" name="sigla" value="{{curso.sigla}}">
-        
+
         <label for="nome">Nome</label>
         <input type="text" name="nome" value="{{curso.nome}}">
 
         <label for="nome">Descrição do Curso</label>
         <input type="text" name="descricao" value="{{curso.descricao}}">
 
-        <input type="submit" value="Enviar">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button type="submit">Adicionar Curso</button>
     </form>
     {{!-- <div class="invalid-feedback">{{showError errors 'nome'}}</div> --}}
+    <a href="/curso/">Voltar</a>
 </div>
