@@ -14,9 +14,10 @@ const index = async (req, res) => {
 };
 
 const create = async (req, res) => {
+    console.log("seu token eh: " + req.csrfToken());
     if (req.route.methods.get) {
         res.render('curso/create',{
-            csrf: req.csrfToken()
+            csrf: req.csrfToken(),
         });
     } else {
         curso = await Curso.create({

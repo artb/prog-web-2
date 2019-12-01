@@ -7,6 +7,13 @@ const cursoController = require('../app/controlers/curso');
 // MainController
 router.get('/', mainController.index);
 router.get('/sobre', mainController.sobre);
+router.get('/login', mainController.login);
+router.post('/login', mainController.login);
+router.get('/logout', mainController.logout);
+router.get('/signup', mainController.signup);
+router.post('/signup', mainController.signup);
+router.get("/success", (req, res) => {res.send("user cadastrado!")})
+router.get("/error", (req, res) => {res.send("erro no cadastro! tente de novo")})
 
 // AreaController
 router.get('/area', areaController.index);

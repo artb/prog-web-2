@@ -1,4 +1,10 @@
 const bcrypt = require('bcryptjs');
+const models = require("../models/index");
+
+
+const User = models.user;
+const Curso = models.curso;
+const rounds = 5;
 
 const index = (req, res) => {
     if (req.session.uid) {
@@ -31,8 +37,10 @@ const login = async (req, res) => {
                         req.session.uid = user.id;
                         res.redirect("/");
                     } else {
-                        console.log(err);
-                        res.render("main/login", { csrf: req.csrfToken() });
+                        console.log("DEU ERRO " + err);
+                        res.render('main/login', {
+                            csrf: req.csrfToken()
+                        }); 
                     }
                 });
             }
@@ -43,7 +51,7 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
     try {
         const cursos = await Curso.findAll();
-
+        console.log(req);
         if (req.route.methods.get) {
             res.render("main/signup", { cursos: cursos, csrf: req.csrfToken() });
         } else {
@@ -52,10 +60,10 @@ const signup = async (req, res) => {
                 const confirmaSenha = req.body.confirmaSenha;
 
                 if (senha != confirmaSenha) {
-                    res.render("main/signup", { error: "Senhas nÃ£o conferem." });
+                    res.render("main/signup", { error: "Senhas não conferem." });
                 } else if (req.body.lerTermos != "on") {
                     res.render("main/signup", {
-                        error: "VocÃª deve aceitar os termos de uso."
+                        error: "Você deve aceitar os termos de uso."
                     });
                 } else {
                     bcrypt.genSalt(rounds, function (err, salt) {
@@ -83,4 +91,13 @@ const signup = async (req, res) => {
         res.send(error.message);
     }
 };
-module.exports = { login, signup, index, sobre }
+
+const logout = (req, res) => {
+    req.session.destroy(function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        res.redirect("/");
+    });
+};
+module.exports = { login, signup, index, sobre, logout };

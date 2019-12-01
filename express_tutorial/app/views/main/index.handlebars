@@ -1,2 +1,171 @@
-<h1>Welcome to Bindazinho's site</h1>
-<h2>More things to come.</h2>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Chess App</title>
+    <link rel="stylesheet" href="/css/chessboard-1.0.0.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/chessboard-1.0.0.min.js"></script>
+    <script src="/js/chess.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div id="header" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <h3><img class="logo" src="/img/logo.png" style="width:36px" alt="" srcset="">&nbsp; Chess App</h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/partida">Nova Partida</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ranking">Ranking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/curso">Curso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sobre">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout [Arthur Binda Alves]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <script>
+            const board = [];
+        </script>
+
+        <div class="row">
+            <div class="col-9 mt-4">
+                <p class="lead">Seja bem vindo ao aplicativo de partidas de xadrez do Instituto de Computação. Para
+                    iniciar uma nova partida, clique na opção <b>Nova Partida</b> do menu superior. Essa aplicação foi
+                    desenvolvida para servir de modelo para o Trabalho Prático da disciplina Programação Web 2. Caso
+                    encontre algum problema na aplicação, por favor avise o prof. David Fernandes. </p>
+            </div>
+            <div class="col-3">
+                <img src="/img/chess-clipart.png" alt="">
+            </div>
+        </div>
+
+
+        <h2>Minhas partidas</h2>
+        <div class="small-board">
+            <a href="/partida/53">
+                <div id="board-53"></div>
+                <div class="small-info">
+                    <span class="white"><i class="fas fa-chess-king"></i></span>
+                    Micael Levi Lima Cavalcante<br>
+                    <span class="black"><i class="fas fa-chess-king"></i></span>
+                    Arthur Binda Alves
+                </div>
+            </a>
+        </div>
+        <script>
+            board[53] = Chessboard('board-53', {
+                orientation: 'black',
+                position: 'start',
+                showNotation: false
+            });
+        </script>
+        <div class="small-board">
+            <a href="/partida/54">
+                <div id="board-54"></div>
+                <div class="small-info">
+                    <span class="white"><i class="fas fa-chess-king"></i></span>
+                    Arthur Binda Alves<br>
+                    <span>Aguardando oponente</span>
+                </div>
+            </a>
+        </div>
+        <script>
+            board[54] = Chessboard('board-54', {
+                orientation: 'white',
+                position: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',
+                showNotation: false
+            });
+        </script>
+
+        <div class="clearfix"></div>
+        <br>
+
+        <h2>Usuários aguardando oponentes</h2>
+        <div class="small-board">
+            <a href="/partida/52">
+                <div id="board-52"></div>
+                <div class="small-info">
+                    <span class="white"><i class="fas fa-chess-king"></i></span>
+                    Sthefanie Jofer Gomes Passo
+                </div>
+            </a>
+        </div>
+        <script>
+            board[52] = Chessboard('board-52', {
+                orientation: 'black',
+                position: 'start',
+                showNotation: false
+            });
+        </script>
+
+        <div class="clearfix"></div>
+
+        <footer id="footer">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <ul class="list-unstyled">
+                        <li class="float-lg-right"><a href="#top">Back to top</a></li>
+                        <li><a href="https://blog.bootswatch.com"
+                                onclick="pageTracker._link(this.href); return false;">Blog</a></li>
+                        <li><a href="https://blog.bootswatch.com/rss/">RSS</a></li>
+                        <li><a href="https://twitter.com/bootswatch">Twitter</a></li>
+                        <li><a href="https://github.com/thomaspark/bootswatch/">GitHub</a></li>
+                        <li><a href="../help/#api">API</a></li>
+                        <li><a href="../help/#donate">Donate</a></li>
+                    </ul>
+                    <p>Made by <a href="https://thomaspark.co">Thomas Park</a>.</p>
+                    <p>Code released under the <a
+                            href="https://github.com/thomaspark/bootswatch/blob/master/LICENSE">MIT License</a>.</p>
+                    <p>Based on <a href="https://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a
+                            href="https://fontawesome.com/" rel="nofollow">Font Awesome</a>. Web fonts from <a
+                            href="https://fonts.google.com/" rel="nofollow">Google</a>.</p>
+
+                </div>
+            </div>
+
+        </footer>
+
+    </div>
+
+    <script src="/js/custom.js"></script>
+
+    <script>
+        var socket = io.connect();
+        socket.on('connect', function (data) {
+            socket.emit('join', 'Hello World from client');
+        });
+        socket.emit('chat message', 'ola ola');
+        socket.on('chat message', function (msg) {
+            console.log(msg);
+        });  
+    </script>
+
+</body>
+
+</html>

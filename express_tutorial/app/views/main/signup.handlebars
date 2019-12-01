@@ -1,0 +1,42 @@
+<div class="mx-auto mt-4 col-6">
+    <h1>Cadastro de usuário</h1>
+    <p>Use o formulário abaixo para se inscrever no site.</p>
+    <form action="/signup" method="POST">
+        <fieldset>
+            <legend>Dados do curso</legend>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="João da Silva">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                    placeholder="joaodasilva@email.com">
+            </div>
+           å <div class="form-group">
+                <label for="exampleSelect1">Selecione seu curso</label>
+                <select class="form-control" id="exampleSelect1" name="cursoId">
+                    {{#each cursos}}
+                    <option value="{{id}}">{{nome}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input class="form-control" type="password" name="senha" id="senha">
+            </div>
+            <div class="form-group">
+                <label for="confirmaSenha">Confirmar Senha</label>
+                <input class="form-control" type="password" name="confirmaSenha" id="confirmaSenha">
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="lerTermos" id="lerTermos">
+                <label for="lerTermos">Eu li e aceito os <a href="#">Termos de Uso</a> deste site.</label>
+            </div>
+            <input type="hidden" name="_csrf" value="{{csrf}}">
+            <input type="submit" class="btn btn-primary" value="Cadastrar" />
+            <input type="reset" class="btn btn-secondary" value="Limpar" />
+        </fieldset>
+    </form>
+</div>
