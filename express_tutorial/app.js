@@ -71,8 +71,8 @@ app.use(
 			return uuid();
 		},
 		secret: "bindazao",
-		resave: true,
-		saveUninitialized: false
+		resave: false,
+		saveUninitialized: true
 	})
 );
 

@@ -7,15 +7,17 @@ const Curso = models.curso;
 const rounds = 5;
 
 const partida = (req, res) => {
+  if (req.session.uid) {
     if (!req.params.color) {
-        res.render('main/choosecolor');
-    } else {
-        res.render('main/game', {
-            color: req.params.color,
-            partida: 1
-        });
-
-    }
+      res.render('main/choosecolor');
+  } else {
+      res.render('main/game', {
+          color: req.params.color,
+          partida: 1,
+          me: true ,
+      });
+  }
+  }
 }
 
 const index = (req, res) => {
@@ -27,9 +29,11 @@ const index = (req, res) => {
   };
 
 const sobre = (req, res) => {
-    res.render('main/sobre', {
-        layout: 'main'
-    });
+  if (req.session.uid) {
+    res.render("main/sobre", { me: true , layout: 'main'});
+  } else {
+    res.render("main/sobre", { me: false ,layout: 'main'});
+  }
 };
 
 const socket = (req, res) => {
