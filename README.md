@@ -3,14 +3,14 @@
 # Trabalho Chess
 ## To-do list
 - [x] Rota Sobre
-- [ ] Cadastro de usuário
+- [x] Cadastro de usuário
 - [ ] Obedecer a modelagem do professor
-- [ ] Senhas no banco encriptadas
-- [ ] Permissão de rotas
+- [x] Senhas no banco encriptadas
+- [x] Permissão de rotas
 - [ ] Nova partida / iniciar partida
 - [ ] Listagem das partidas esperando oponente
 - [ ] Chat (Opcional)
 - [ ] Ranking
-- [ ] Gerar logs com o Morgan no short
+- [x] Gerar logs com o Morgan no short
 - [x] Utilizar Bootswatch
-- [ ] CRUD Curso
+- [x] CRUD Curso
