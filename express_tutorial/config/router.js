@@ -6,6 +6,9 @@ const cursoController = require('../app/controlers/curso');
 
 // MainController
 router.get('/', mainController.index);
+// router.get('/partida', mainController.index);
+router.get('/socket', mainController.socket);
+router.get('/partida/:color', mainController.partida);
 router.get('/sobre', mainController.sobre);
 router.get('/login', mainController.login);
 router.post('/login', mainController.login);
