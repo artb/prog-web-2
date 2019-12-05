@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>Cursos</h1>
+    {{#each cursos}}
+    <div>
+        <li>{{nome}} - {{sigla}}</li>
+        <li>{{descricao}}</li>
+    </div>
+    {{/each}}
+    <a href="/curso/create/">Adicionar Curso</a>
+</div>

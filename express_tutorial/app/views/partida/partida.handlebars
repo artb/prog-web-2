@@ -1,0 +1,281 @@
+<div id="header" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+        <a href="/" class="navbar-brand">
+            <h3><img class="logo" src="/img/logo.png" style="width:36px" alt="" srcset="">&nbsp; Chess App</h3>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/partida">Nova Partida</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ranking">Ranking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/curso">Curso</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sobre">Sobre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout [Arthur Binda Alves]</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div id="chess" class="container clearfix">
+
+        <div class="chess-board">
+            <div id="board"></div>
+            <div class="opponents">
+                Aguardando oponente.
+            </div>
+            <div id="status"></div>
+
+        </div>
+
+        <div class="chat">
+
+            <div id="chat-history">
+                <ul id="messages">
+
+                    <li class="right-message white-message clearfix">
+                        <div class="message-data">
+                            <span class="message-piece"><i class="fas fa-chess-king"></i></span>
+                            <span class="message-data-name">Arthur Binda Alves</span>
+                            <span class="message-data-time">01/12/2019 06:20:56</span>
+                        </div>
+                        <div class="message">
+                            Boa sorte ao meu oponente!
+                        </div>
+                    </li>
+                    <li class="left-message black-message clearfix">
+                        <div class="message-data">
+                            <span class="message-piece"><i class="fas fa-chess-king"></i></span>
+                            <span class="message-data-name">Jogador a ser definido</span>
+                            <span class="message-data-time">01/12/2019 06:20:56</span>
+                        </div>
+                        <div class="message">
+                            Boa sorte ao meu oponente!
+                        </div>
+                    </li>
+
+
+                    <!--
+          <li>
+            <i class="fa fa-circle online"></i>
+            <i class="fa fa-circle online"></i>
+            <i class="fa fa-circle online"></i>
+          </li>
+          -->
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        (function () {
+
+            $("#chat-history").scrollTop($('#messages').height());
+
+            const socket = io();
+            const partida = 54;
+            const user_w = '17';
+            const user_b = '';
+            const user_current = '17';
+            const my_color = 'white';
+            const my_name = 'Arthur Binda Alves';
+            const op_color = 'black';
+            const op_name = 'Jogador a ser definido';
+            const $status = $('#status');
+
+            socket.on('b_ok', function (msg) {
+                if (msg.partida == partida) {
+                    location.reload();
+                }
+            });
+
+            $("#enviar").click(function () {
+                let mensagem = {
+                    partida: 54,
+                    user: { id: user_current, nome: my_name },
+                    color: my_color,
+                    mensagem: $("#message-to-send").val(),
+                    date: new Date(Date.now()).toLocaleString()
+                };
+                socket.emit('mensagem', mensagem);
+                $("#message-to-send").val("");
+                appendMensagem(mensagem, 'right', my_color);
+                $("#chat-history").scrollTop($('#messages').height());
+            });
+
+            $("#message-to-send").keypress(function (e) {
+                if (e.which == 13) {
+                    $("#enviar").click();
+                    return false;
+                }
+            });
+
+            socket.on('mensagem', function (mensagem) {
+                appendMensagem(mensagem, 'left', op_color);
+                $("#chat-history").scrollTop($('#messages').height());
+            });
+
+            function appendMensagem(mensagem, align, color) {
+
+                if (align == 'left') {
+                    var messageData =
+                        `<div class="message-data">
+          <span class="message-piece"><i class="fas fa-chess-king"></i></span>              
+          <span class="message-data-name" >${mensagem.user.nome}</span>
+          <span class="message-data-time" >${mensagem.date}</span>  
+        </div>`;
+                } else {
+                    var messageData =
+                        `<div class="message-data">
+          <span class="message-data-time" >${mensagem.date}</span>            
+          <span class="message-data-name" >${mensagem.user.nome}</span>          
+          <span class="message-piece"><i class="fas fa-chess-king"></i></span>              
+        </div>`;
+                }
+
+                var newMessage =
+                    `<li class="${align}-message ${color}-message clearfix">
+        ${messageData}
+        <div class="message">
+          ${mensagem.mensagem}
+        </div>        
+      </li>`;
+
+                $("#messages").append(newMessage);
+            }
+
+            const game = new Chess();
+            game.load('start');
+
+            const board = Chessboard('board', {
+                draggable: true,
+                orientation: 'white',
+                position: 'start',
+                moveSpeed: 'slow',
+                pieceTheme: '/img/chesspieces/wikipedia/{piece}.png',
+                onDragStart: onDragStart,
+                onDrop: onDrop,
+                onSnapEnd: onSnapEnd
+            });
+
+            function onDragStart(source, piece, position, orientation) {
+                // do not pick up pieces if the game is over
+                if (game.game_over()) return false;
+
+                // only pick up pieces for its own color
+                if ((my_color === 'white' && piece.search(/^b/) !== -1) ||
+                    (my_color === 'black' && piece.search(/^w/) !== -1)) {
+                    return false
+                }
+
+                // only pick up pieces for the side to move
+                if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+                    (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+                    return false
+                }
+            }
+
+            function onDrop(source, target) {
+                // see if the move is legal
+                var move = game.move({
+                    from: source,
+                    to: target,
+                    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+                });
+
+                // illegal move
+                if (move === null) return 'snapback'
+
+                // Enviar posição para adversário
+                socket.emit('move', {
+                    partida: 54,
+                    source: source,
+                    target: target,
+                    position: game.fen()
+                });
+
+                updateStatus();
+            }
+
+            // update the board position after the piece snap
+            // for castling, en passant, pawn promotion
+            function onSnapEnd() {
+                board.position(game.fen())
+            }
+
+            function updateStatus() {
+                var status = ''
+
+                var moveColor = '<b>branco</b>'
+                if (game.turn() === 'b') {
+                    moveColor = '<b>preto</b>'
+                }
+
+                // checkmate?
+                if (game.in_checkmate()) {
+                    status = 'É xeque-mate! Vitória do jogador ' + moveColor + '!'
+                }
+
+                // empate? (draw)
+                else if (game.in_draw()) {
+                    status = 'O jogo empatou!'
+                }
+
+                // game still on
+                else {
+                    status = 'A vez é do jogador ' + moveColor + '.'
+
+                    // check?
+                    if (game.in_check()) {
+                        status += ', o jogador ' + moveColor + ' está em xeque.'
+                    }
+                }
+
+                $status.html(status)
+            }
+
+            socket.on('move', function (move) {
+
+                if (move.partida == 54) {
+                    board.move(move.source + '-' + move.target);
+
+                    game.move({
+                        from: move.source,
+                        to: move.target,
+                        promotion: 'q' // NOTE: always promote to a queen for example simplicity
+                    });
+
+                    updateStatus();
+                }
+
+            });
+
+            updateStatus();
+
+        })();
+
+    </script>
+
+</div>
+
+<script src="/js/custom.js"></script>

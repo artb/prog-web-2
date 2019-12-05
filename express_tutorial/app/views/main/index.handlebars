@@ -1,2 +1,76 @@
-<h1>Welcome to Bindazinho's site</h1>
-<h2>More things to come.</h2>
+<div class="container">
+
+    <script>
+        const board = [];
+    </script>
+
+    <div class="row">
+        <div class="col-9 mt-4">
+            <p class="lead">Seja bem vindo ao aplicativo de partidas de xadrez do Instituto de Computação. Para
+                iniciar uma nova partida, clique na opção <b>Nova Partida</b> do menu superior. Essa aplicação foi
+                desenvolvida para servir de modelo para o Trabalho Prático da disciplina Programação Web 2. </p>
+        </div>
+        <div class="col-3">
+            <img src="/img/chess-clipart.png" alt="">
+        </div>
+    </div>
+
+
+    <h2>Minhas partidas</h2>
+    <div class="small-board">
+        <a href="/partida/53">
+            <div id="board-53"></div>
+            <div class="small-info">
+                <span class="white"><i class="fas fa-chess-king"></i></span>
+                Micael Levi Lima Cavalcante<br>
+                <span class="black"><i class="fas fa-chess-king"></i></span>
+                Arthur Binda Alves
+            </div>
+        </a>
+    </div>
+    <script>
+        board[53] = Chessboard('board-53', {
+            orientation: 'black',
+            position: 'start',
+            showNotation: false
+        });
+    </script>
+    <div class="small-board">
+        <a href="/partida/54">
+            <div id="board-54"></div>
+            <div class="small-info">
+                <span class="white"><i class="fas fa-chess-king"></i></span>
+                Arthur Binda Alves<br>
+                <span>Aguardando oponente</span>
+            </div>
+        </a>
+    </div>
+    <script>
+        board[54] = Chessboard('board-54', {
+            orientation: 'white',
+            position: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',
+            showNotation: false
+        });
+    </script>
+
+    <div class="clearfix"></div>
+    <br>
+
+    <h2>Usuários aguardando oponentes</h2>
+    <div class="small-board">
+        <a href="/partida/52">
+            <div id="board-52"></div>
+            <div class="small-info">
+                <span class="white"><i class="fas fa-chess-king"></i></span>
+                Sthefanie Jofer Gomes Passo
+            </div>
+        </a>
+    </div>
+    <script>
+        board[52] = Chessboard('board-52', {
+            orientation: 'black',
+            position: 'start',
+            showNotation: false
+        });
+    </script>
+    <script src="/js/custom.js"></script>
