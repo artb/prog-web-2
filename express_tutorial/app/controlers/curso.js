@@ -5,6 +5,7 @@ const update = (req, res) => { };
 const remove = (req, res) => { };
 
 const index = async (req, res) => {
+
     if (req.session.uid) {
         try {
             cursos = await Curso.findAll();
