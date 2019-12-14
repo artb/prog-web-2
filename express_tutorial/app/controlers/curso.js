@@ -5,12 +5,14 @@ const update = (req, res) => { };
 const remove = (req, res) => { };
 
 const index = async (req, res) => {
-    try {
-        cursos = await Curso.findAll();
-        res.render('curso/index', {
-            cursos: cursos,
-        });
-    } catch (error) { }
+    if (req.session.uid) {
+        try {
+            cursos = await Curso.findAll();
+            res.render('curso/index', {
+                cursos: cursos,
+            });
+        } catch (error) { }
+    }
 };
 
 const create = async (req, res) => {
