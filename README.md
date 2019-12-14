@@ -7,7 +7,7 @@
 - [ ] Obedecer a modelagem do professor
 - [x] Senhas no banco encriptadas
 - [x] Permissão de rotas
-- [ ] Nova partida / iniciar partida
+- [x] Nova partida / iniciar partida
 - [ ] Listagem das partidas esperando oponente
 - [ ] Chat (Opcional)
 - [ ] Ranking
