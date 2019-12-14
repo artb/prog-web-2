@@ -1,0 +1,22 @@
+<div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nome</th>
+				<th scope="col">email</th>
+				<th scope="col">Número de vitórias</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each players}}
+			<tr>
+				<td>{{this.user.id}}</td>
+				<td>{{this.user.nome}}</td>
+				<td>{{this.user.email}}</td>
+				<td>{{this.wins}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
