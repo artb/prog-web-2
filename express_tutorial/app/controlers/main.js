@@ -120,4 +120,37 @@ const logout = (req, res) => {
         res.redirect("/");
     });
 };
-module.exports = { login, signup, index, sobre, logout, socket, partida };
+
+const ranking = async (req, res) => {
+	let players = null;
+	try {
+		players = await Partida.findAll({
+			attributes: ['winner', [Sequelize.fn('count', Sequelize.col('winner')), 'count']],
+			where: { winner: { [Op.ne]: null } },
+			group: ['partida.winner'],
+			raw: true,
+			order: Sequelize.literal('count DESC')
+		})
+
+		let player_2 = []
+		for (let player of players) {
+			let { count, winner } = player
+			try {
+				let user = await User.findByPk(winner, { attributes: ['nome', 'id', 'email'] });
+				player_2.push({
+					wins: count,
+					user: { ...user.dataValues }
+				})
+			} catch (error) {
+				console.log("Erro no ranking" + error);
+			}
+		}
+		players = player_2;
+		console.log(players);
+	} catch (error) {
+		return res.status(500).send(error);
+	}
+	return senderWithLogin(req, res, 'render', { players }, 'main/login/ranking');
+}
+
+module.exports = { login, signup, index, sobre, logout, socket, partida, ranking };

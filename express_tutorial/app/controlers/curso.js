@@ -10,23 +10,25 @@ const index = async (req, res) => {
         res.render('curso/index', {
             cursos: cursos,
         });
-    } catch(error) {}
+    } catch (error) { }
 };
 
 const create = async (req, res) => {
     console.log("seu token eh: " + req.csrfToken());
-    if (req.route.methods.get) {
-        res.render('curso/create',{
-            csrf: req.csrfToken(),
-        });
-    } else {
-        curso = await Curso.create({
-            sigla: req.body.sigla,
-            nome: req.body.nome,
-            descricao: req.body.descricao,
-            id_area: req.body.area,
-        });
-        res.redirect('/curso');
+    if (req.session.uid) {
+        if (req.route.methods.get) {
+            res.render('curso/create', {
+                csrf: req.csrfToken(),
+            });
+        } else {
+            curso = await Curso.create({
+                sigla: req.body.sigla,
+                nome: req.body.nome,
+                descricao: req.body.descricao,
+                id_area: req.body.area,
+            });
+            res.redirect('/curso');
+        }
     }
 };
 
